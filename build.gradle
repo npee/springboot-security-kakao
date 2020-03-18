@@ -1,6 +1,10 @@
 plugins {
     id 'java'
+    id 'eclipse'
+    id 'org.springframework.boot' version '2.2.5.RELEASE'
 }
+
+apply plugin: 'io.spring.dependency-management'
 
 group 'com.npee'
 version '1.0-SNAPSHOT'
@@ -12,5 +16,29 @@ repositories {
 }
 
 dependencies {
+
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompileOnly('org.projectlombok:lombok:1.18.12')
+    testAnnotationProcessor ('org.projectlombok:lombok:1.18.12')
+
+    compile('org.springframework.boot:spring-boot-starter-web:')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-freemarker')
+    compile('org.springframework.boot:spring-boot-devtools')
+
+    compileOnly('org.projectlombok:lombok:1.18.12')
+    annotationProcessor('org.projectlombok:lombok:1.18.12')
+
+    /*
+    <javax-persistence.version>2.2</javax-persistence.version>
+    <lombok.version>1.18.12</lombok.version>
+    <jstl.version>1.2</jstl.version>
+    <log4j2.version>2.12.1</log4j2.version>
+    <mysql.version>8.0.19</mysql.version>
+    */
+
+    runtime('com.h2database:h2')
+    runtimeOnly('mysql:mysql-connector-java')
+
 }
