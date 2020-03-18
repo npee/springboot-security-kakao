@@ -38,6 +38,9 @@ dependencies {
     <mysql.version>8.0.19</mysql.version>
     */
 
+    compile group: 'org.webjars', name: 'jquery', version: '1.12.4'
+    compile('pl.allegro.tech.boot:handlebars-spring-boot-starter:0.3.0')
+
     runtime('com.h2database:h2')
     runtimeOnly('mysql:mysql-connector-java')
 
