@@ -17,7 +17,15 @@ public class MemberService {
 
     @Transactional
     public Long save(MemberRequestDto memberRequestDto) {
+
+        verifyDuplicateEmail(memberRequestDto.getEmail());
         return memberRepository.save(memberRequestDto.toEntity()).getId();
+    }
+
+    private void verifyDuplicateEmail(String email) {
+        if (memberRepository.findByEmail(email).isPresent()) {
+            throw new ValidCustomException("이미 사용중인 이메일입니다", "email");
+        }
     }
 
     @Transactional(readOnly = true)
