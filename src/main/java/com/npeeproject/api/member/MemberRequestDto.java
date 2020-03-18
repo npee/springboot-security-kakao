@@ -19,7 +19,8 @@ public class MemberRequestDto {
     private String name;
 
     @NotBlank(message = "전화번호를 입력해주세요")
-    @Pattern(regexp = "[0~9]{11}", message = "11자리의 숫자로 구성되어야 합니다")
+    @Pattern(regexp = "[0-9]{11}", message = "11자리의 숫자로 구성되어야 합니다")
+    //@Pattern(regexp = "^01(?:0|1|[6-9])[.-]?([0-9]{3}|[0-9]{4})[.-]?([0-9]{4})$", message = "11자리의 숫자로 구성되어야 합니다")
     private String phoneNumber;
 
     @NotBlank(message = "이메일을 입력해주세요")
