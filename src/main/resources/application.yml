@@ -1,2 +1,15 @@
 server:
+  address: localhost
   port: 8080
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: manager
+    url: jdbc:mysql://localhost:3306/rest_api_test?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties.hibernate.hbm2ddl.auto: update
+    generate-ddl: true
+    show-sql: true
