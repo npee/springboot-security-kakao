@@ -81,7 +81,7 @@
 
             var findAll = function () {
                 $.ajax({
-                    url:'/members',
+                    url:'/api/members',
                     method: 'GET',
                     success: function (response) {
                         var source   = $("#table-template").html();
@@ -100,7 +100,7 @@
                     email: $('#email').val()
                 };
                 $.ajax({
-                    url:'/member',
+                    url:'/api/member',
                     method: 'POST',
                     data: JSON.stringify(member),
                     contentType: "application/json; charset=utf-8",
