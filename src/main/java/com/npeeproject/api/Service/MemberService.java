@@ -1,5 +1,9 @@
-package com.npeeproject.api.member;
+package com.npeeproject.api.Service;
 
+import com.npeeproject.api.member.MemberRepository;
+import com.npeeproject.api.member.MemberRequestDto;
+import com.npeeproject.api.member.MemberResponseDto;
+import com.npeeproject.api.member.ValidCustomException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +23,7 @@ public class MemberService {
     public Long save(MemberRequestDto memberRequestDto) {
 
         verifyDuplicateEmail(memberRequestDto.getEmail());
+        // return memberRepository.save(memberRequestDto.toEntity()).getId();
         return memberRepository.save(memberRequestDto.toEntity()).getId();
     }
 
@@ -37,5 +42,23 @@ public class MemberService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
+    public Long update(MemberRequestDto memberRequestDto) {
+        verifyDuplicateEmail(memberRequestDto.getEmail());
+        return memberRepository.save(memberRequestDto.toEntity()).getId();
+    }
+
+    @Transactional(readOnly = true)
+    public MemberResponseDto findById(Long id) {
+        return memberRepository
+                .findById(id)
+                .map(MemberResponseDto::new)
+                .get();
+    }
+
+    @Transactional
+    public void deleteById(Long id) {
+        memberRepository.deleteById(id);
+    }
 
 }
