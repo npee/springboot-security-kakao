@@ -42,11 +42,31 @@
                 </table>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h1> 회원수정 </h1>
+                <form>
+                    <div class="form-group">
+                        <label for="update-name">이름</label>
+                        <input type="text" class="form-control" id="update-name" placeholder="수정할 이름을 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-phoneNumber"> 휴대폰번호 </label>
+                        <input type="text" class="form-control" id="update-phoneNumber" placeholder="수정할 휴대폰 번호를 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-email">이메일</label>
+                        <input type="text" class="form-control" id="update-email" placeholder="수정할 이메일을 입력하세요">
+                    </div>
+                    <button type="button" class="btn btn-primary" id="btnUpdate">수정</button>
+                </form>
+            </div>
+        </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.min.js"></script>
 
         <script id="table-template" type="text/x-handlebars-template">
-            {{#each members}}
+            {{#each members.list}}
             <tr>
                 <td>{{id}}</td>
                 <td>{{name}}</td>
