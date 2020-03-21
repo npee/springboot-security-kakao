@@ -40,6 +40,20 @@ public class MemberRequestDto {
         return member;
     }
 
+    public Member toEntity(Long id) {
+        //String[] phones = parsePhone();
+        //return new Member(name, phones[0], phones[1], phones[2], email);
+        Member member = Member.builder()
+                .id(id)
+                .name(name)
+                .phone1(parsePhone()[0])
+                .phone2(parsePhone()[1])
+                .phone3(parsePhone()[2])
+                .email(email)
+                .build();
+        return member;
+    }
+
     private String[] parsePhone() {
         String[] phones = new String[3];
         phones[0] = phoneNumber.substring(0, 3);
