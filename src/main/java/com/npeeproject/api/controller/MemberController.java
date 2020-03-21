@@ -56,7 +56,7 @@ public class MemberController {
         return responseService.getSingleResult(memberService.save(memberRequestDto));
     }
 
-    @ApiOperation(value = "회원정보 수정", notes = "회원정보 수정하기")
+    @ApiOperation(value = "회원정보 수정", notes = "회원정보 수정하기(Email 중복 체크 주의: 기존 Email도 포함됨)")
     @PutMapping(value = "/member")
     public SingleResult<MemberResponseDto> modifyMemberInfo (
             @ApiParam(value = "회원가입정보Dto", required = true)
