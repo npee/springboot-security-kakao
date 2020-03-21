@@ -62,7 +62,7 @@ public class MemberController {
             @ApiParam(value = "회원가입정보Dto", required = true)
             @RequestBody
             @Valid MemberRequestDto memberRequestDto) {
-        return responseService.getSingleResult(memberService.save(memberRequestDto));
+        return responseService.getSingleResult(memberService.update(memberRequestDto));
     }
 
     @ApiOperation(value = "회원 탈퇴", notes = "회원정보 삭제하기")
