@@ -1,4 +1,4 @@
-package com.npeeproject.api.exception;
+package com.npeeproject.api.advice.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

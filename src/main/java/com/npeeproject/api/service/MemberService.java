@@ -1,6 +1,6 @@
 package com.npeeproject.api.service;
 
-import com.npeeproject.api.exception.ValidCustomException;
+import com.npeeproject.api.advice.exception.ValidCustomException;
 import com.npeeproject.api.model.Member;
 import com.npeeproject.api.model.request.MemberRequestDto;
 import com.npeeproject.api.model.response.MemberResponseDto;
