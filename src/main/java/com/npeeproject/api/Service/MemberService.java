@@ -1,9 +1,6 @@
 package com.npeeproject.api.Service;
 
-import com.npeeproject.api.member.MemberRepository;
-import com.npeeproject.api.member.MemberRequestDto;
-import com.npeeproject.api.member.MemberResponseDto;
-import com.npeeproject.api.member.ValidCustomException;
+import com.npeeproject.api.member.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,11 +17,13 @@ public class MemberService {
     }
 
     @Transactional
-    public Long save(MemberRequestDto memberRequestDto) {
+    // public Long save(MemberRequestDto memberRequestDto) {
+    public MemberResponseDto save(MemberRequestDto memberRequestDto) {
 
         verifyDuplicateEmail(memberRequestDto.getEmail());
         // return memberRepository.save(memberRequestDto.toEntity()).getId();
-        return memberRepository.save(memberRequestDto.toEntity()).getId();
+        // return memberRepository.save(memberRequestDto.toEntity());
+        return new MemberResponseDto(memberRepository.save(memberRequestDto.toEntity()));
     }
 
     private void verifyDuplicateEmail(String email) {
