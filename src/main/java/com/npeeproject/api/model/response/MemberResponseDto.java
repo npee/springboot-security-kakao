@@ -1,5 +1,6 @@
-package com.npeeproject.api.member;
+package com.npeeproject.api.model.response;
 
+import com.npeeproject.api.model.Member;
 import lombok.*;
 
 @Builder

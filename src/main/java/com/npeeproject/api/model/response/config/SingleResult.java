@@ -1,4 +1,4 @@
-package com.npeeproject.api.model.response;
+package com.npeeproject.api.model.response.config;
 
 import lombok.Getter;
 import lombok.Setter;

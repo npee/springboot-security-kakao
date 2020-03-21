@@ -1,12 +1,12 @@
 package com.npeeproject.api.controller;
 
-import com.npeeproject.api.Service.ResponseService;
-import com.npeeproject.api.member.MemberRequestDto;
-import com.npeeproject.api.member.MemberResponseDto;
-import com.npeeproject.api.Service.MemberService;
-import com.npeeproject.api.model.response.CommonResult;
-import com.npeeproject.api.model.response.ListResult;
-import com.npeeproject.api.model.response.SingleResult;
+import com.npeeproject.api.service.ResponseService;
+import com.npeeproject.api.model.request.MemberRequestDto;
+import com.npeeproject.api.model.response.MemberResponseDto;
+import com.npeeproject.api.service.MemberService;
+import com.npeeproject.api.model.response.config.CommonResult;
+import com.npeeproject.api.model.response.config.ListResult;
+import com.npeeproject.api.model.response.config.SingleResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Api(tags = {"1. Member"})
 @RequiredArgsConstructor

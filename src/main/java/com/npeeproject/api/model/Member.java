@@ -1,4 +1,4 @@
-package com.npeeproject.api.member;
+package com.npeeproject.api.model;
 
 import lombok.*;
 

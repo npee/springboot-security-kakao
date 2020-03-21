@@ -1,11 +1,13 @@
-package com.npeeproject.api.Service;
+package com.npeeproject.api.service;
 
-import com.npeeproject.api.member.*;
+import com.npeeproject.api.exception.ValidCustomException;
+import com.npeeproject.api.model.request.MemberRequestDto;
+import com.npeeproject.api.model.response.MemberResponseDto;
+import com.npeeproject.api.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
