@@ -1,6 +1,7 @@
 package com.npeeproject.api.service;
 
 import com.npeeproject.api.exception.ValidCustomException;
+import com.npeeproject.api.model.Member;
 import com.npeeproject.api.model.request.MemberRequestDto;
 import com.npeeproject.api.model.response.MemberResponseDto;
 import com.npeeproject.api.repository.MemberRepository;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,12 +53,14 @@ public class MemberService {
     }
 
     @Transactional(readOnly = true)
-    public MemberResponseDto findById(Long id) {
+    public MemberResponseDto findById(Long id) throws Exception {
 
-        return memberRepository
-                .findById(id)
-                .map(MemberResponseDto::new)
-                .get();
+        Optional<Member> member = memberRepository.findById(id);
+        if (member.isPresent()) {
+            return member.map(MemberResponseDto::new).get();
+        } else {
+            return new MemberResponseDto(member.orElseThrow(Exception::new));
+        }
     }
 
     @Transactional
