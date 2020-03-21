@@ -1,5 +1,6 @@
 package com.npeeproject.api.advice;
 
+import com.npeeproject.api.advice.exception.MemberNotFoundException;
 import com.npeeproject.api.model.response.config.CommonResult;
 import com.npeeproject.api.service.ResponseService;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +17,17 @@ public class ExceptionAdvice {
 
     private final ResponseService responseService;
 
+    /*
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     protected CommonResult defaultException(HttpServletRequest request, Exception e) {
+        return responseService.getFailResult();
+    }
+    */
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult memberNotFountException(HttpServletRequest request, MemberNotFoundException e) {
         return responseService.getFailResult();
     }
 }

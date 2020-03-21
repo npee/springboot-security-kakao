@@ -42,7 +42,7 @@ public class MemberController {
     @GetMapping(value = "/member/{id}")
     public SingleResult<MemberResponseDto> findMemberById (
             @ApiParam(value = "회원id", required = true)
-            @PathVariable Long id) throws Exception {
+            @PathVariable Long id) {
         return responseService.getSingleResult(memberService.findById(id));
     }
 

@@ -1,5 +1,6 @@
 package com.npeeproject.api.service;
 
+import com.npeeproject.api.advice.exception.MemberNotFoundException;
 import com.npeeproject.api.advice.exception.ValidCustomException;
 import com.npeeproject.api.model.Member;
 import com.npeeproject.api.model.request.MemberRequestDto;
@@ -53,13 +54,13 @@ public class MemberService {
     }
 
     @Transactional(readOnly = true)
-    public MemberResponseDto findById(Long id) throws Exception {
+    public MemberResponseDto findById(Long id) {
 
         Optional<Member> member = memberRepository.findById(id);
         if (member.isPresent()) {
             return member.map(MemberResponseDto::new).get();
         } else {
-            return new MemberResponseDto(member.orElseThrow(Exception::new));
+            return new MemberResponseDto(member.orElseThrow(MemberNotFoundException::new));
         }
     }
 
