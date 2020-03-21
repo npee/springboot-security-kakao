@@ -24,8 +24,36 @@
                     </div>
                     <button type="button" class="btn btn-primary" id="btnSave">등록</button>
                 </form>
+                <h1> 회원수정 </h1>
+                <form>
+                    <div class="form-group">
+                        <label for="update-id">ID</label>
+                        <input type="text" class="form-control" id="update-id" placeholder="수정할 회원의 ID를 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-name">이름</label>
+                        <input type="text" class="form-control" id="update-name" placeholder="수정할 회원의 이름을 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-phoneNumber"> 휴대폰번호 </label>
+                        <input type="text" class="form-control" id="update-phoneNumber" placeholder="수정할 회원의 휴대폰 번호를 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-email">이메일</label>
+                        <input type="text" class="form-control" id="update-email" placeholder="수정할 회원의 이메일을 입력하세요">
+                    </div>
+                    <button type="button" class="btn btn-primary" id="btnUpdate">수정</button>
+                </form>
             </div>
             <div class="col-md-6">
+                <h1> 회원삭제 </h1>
+                <form>
+                    <div class="form-group">
+                        <label for="delete-id">ID</label>
+                        <input type="text" class="form-control" id="delete-id" placeholder="수정할 회원의 ID를 입력하세요">
+                    </div>
+                    <button type="button" class="btn btn-primary" id="btnDelete">삭제</button>
+                </form>
                 <h1> 회원 리스트 </h1>
                 <table class="table table-horizontal table-bordered">
                     <thead class="thead-strong">
@@ -40,26 +68,6 @@
 
                     </tbody>
                 </table>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <h1> 회원수정 </h1>
-                <form>
-                    <div class="form-group">
-                        <label for="update-name">이름</label>
-                        <input type="text" class="form-control" id="update-name" placeholder="수정할 이름을 입력하세요">
-                    </div>
-                    <div class="form-group">
-                        <label for="update-phoneNumber"> 휴대폰번호 </label>
-                        <input type="text" class="form-control" id="update-phoneNumber" placeholder="수정할 휴대폰 번호를 입력하세요">
-                    </div>
-                    <div class="form-group">
-                        <label for="update-email">이메일</label>
-                        <input type="text" class="form-control" id="update-email" placeholder="수정할 이메일을 입력하세요">
-                    </div>
-                    <button type="button" class="btn btn-primary" id="btnUpdate">수정</button>
-                </form>
             </div>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -90,6 +98,7 @@
                 var $field, error;
                 for(var i=0, length = errorFields.length; i<length;i++){
                     error = errorFields[i];
+                    console.log(error);
                     $field = $('#'+error['field']);
 
                     if($field && $field.length > 0){
@@ -109,6 +118,9 @@
                         var html = template({members:response});
                         $tbody.html('');
                         $tbody.html(html);
+
+                        var errorField = $('.error-message');
+                        errorField.remove();
                     }
                 });
             };
@@ -126,12 +138,56 @@
                     contentType: "application/json; charset=utf-8",
                     success: function (response) {
                         findAll();
+                        $('#name').val("");
+                        $('#phoneNumber').val("");
+                        $('#email').val("");
                     },
                     error: function (response) {
                         markingErrorField(response);
                     }
                 });
             });
+
+            $('#btnUpdate').click(function () {
+                var member = {
+                    id: $('#update-id').val(),
+                    name: $('#update-name').val(),
+                    phoneNumber: $('#update-phoneNumber').val(),
+                    email: $('#update-email').val()
+                };
+                $.ajax({
+                    url:'/api/member',
+                    method: 'PUT',
+                    data: JSON.stringify(member),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        alert("업데이트 완료");
+                        findAll();
+                    },
+                    error: function (response) {
+                        markingErrorField(response);
+                    }
+                });
+            });
+
+            $('#btnDelete').click(function () {
+                var deleteId = $('#delete-id').val();
+                $.ajax({
+                    url:'/api/member/' + deleteId,
+                    method: 'DELETE',
+                    // data: JSON.stringify(member),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        alert(deleteId + "번 회원이 삭제되었습니다.");
+                        findAll();
+                    },
+                    error: function (response) {
+                        markingErrorField(response);
+                    }
+                });
+            });
+
+
 
 
 
