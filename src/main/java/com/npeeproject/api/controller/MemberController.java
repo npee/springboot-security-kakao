@@ -49,20 +49,20 @@ public class MemberController {
 
     @ApiOperation(value = "회원가입", notes = "입력된 회원 정보를 DB에 저장하는 기능")
     @PostMapping("/member")
-    public Long saveMember(
+    public SingleResult<MemberResponseDto> saveMember(
             @ApiParam(value = "회원가입정보Dto", required = true)
             @RequestBody
             @Valid MemberRequestDto memberRequestDto) {
-        return memberService.save(memberRequestDto);
+        return responseService.getSingleResult(memberService.save(memberRequestDto));
     }
 
     @ApiOperation(value = "회원정보 수정", notes = "회원정보 수정하기")
     @PutMapping(value = "/member")
-    public Long modifyMemberInfo (
+    public SingleResult<MemberResponseDto> modifyMemberInfo (
             @ApiParam(value = "회원가입정보Dto", required = true)
             @RequestBody
             @Valid MemberRequestDto memberRequestDto) {
-        return memberService.save(memberRequestDto);
+        return responseService.getSingleResult(memberService.save(memberRequestDto));
     }
 
     @ApiOperation(value = "회원 탈퇴", notes = "회원정보 삭제하기")
