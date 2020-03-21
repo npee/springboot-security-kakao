@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,23 +18,22 @@ public class MemberService {
     }
 
     @Transactional
-    // public Long save(MemberRequestDto memberRequestDto) {
     public MemberResponseDto save(MemberRequestDto memberRequestDto) {
 
-        verifyDuplicateEmail(memberRequestDto.getEmail());
-        // return memberRepository.save(memberRequestDto.toEntity()).getId();
-        // return memberRepository.save(memberRequestDto.toEntity());
+        verifyDuplicateEmail(memberRequestDto.getEmail(), "email");
         return new MemberResponseDto(memberRepository.save(memberRequestDto.toEntity()));
     }
 
-    private void verifyDuplicateEmail(String email) {
+    private void verifyDuplicateEmail(String email, String field) {
+
         if (memberRepository.findByEmail(email).isPresent()) {
-            throw new ValidCustomException("이미 사용중인 이메일입니다", "email");
+            throw new ValidCustomException("이미 사용중인 이메일입니다", field);
         }
     }
 
     @Transactional(readOnly = true)
     public List<MemberResponseDto> findAll() {
+
         return memberRepository
                 .findAll()
                 .stream()
@@ -42,13 +42,15 @@ public class MemberService {
     }
 
     @Transactional
-    public Long update(MemberRequestDto memberRequestDto) {
-        verifyDuplicateEmail(memberRequestDto.getEmail());
-        return memberRepository.save(memberRequestDto.toEntity()).getId();
+    public MemberResponseDto update(MemberRequestDto memberRequestDto) {
+
+        verifyDuplicateEmail(memberRequestDto.getEmail(), "update-email");
+        return new MemberResponseDto(memberRepository.save(memberRequestDto.toEntity(memberRequestDto.getId())));
     }
 
     @Transactional(readOnly = true)
     public MemberResponseDto findById(Long id) {
+
         return memberRepository
                 .findById(id)
                 .map(MemberResponseDto::new)
@@ -57,6 +59,7 @@ public class MemberService {
 
     @Transactional
     public void deleteById(Long id) {
+
         memberRepository.deleteById(id);
     }
 
