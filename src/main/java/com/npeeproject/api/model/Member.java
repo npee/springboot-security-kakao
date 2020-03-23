@@ -24,11 +24,7 @@ public class Member {
     private String name;
 
     @NotNull
-    private String phone1;
-    @NotNull
-    private String phone2;
-    @NotNull
-    private String phone3;
+    private String phoneNumber;
 
     @NotNull
     private String email;
