@@ -45,11 +45,11 @@ public class ResponseService {
         return result;
     }
 
-    public CommonResult getFailResult() {
+    public CommonResult getFailResult(int code, String message) {
         CommonResult result = new CommonResult();
         result.setSuccess(false);
-        result.setCode(CommonResponse.FAIL.getCode());
-        result.setMessage(CommonResponse.FAIL.getMessage());
+        result.setCode(code);
+        result.setMessage(message);
         return result;
     }
 
