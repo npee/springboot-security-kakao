@@ -1,5 +1,7 @@
 package com.npeeproject.api.controller;
 
+import com.npeeproject.api.model.Member;
+import com.npeeproject.api.repository.MemberRepository;
 import com.npeeproject.api.service.ResponseService;
 import com.npeeproject.api.model.request.MemberRequestDto;
 import com.npeeproject.api.model.response.MemberResponseDto;
@@ -23,6 +25,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final ResponseService responseService;
+    private final MemberRepository memberRepository;
 
     /*
     public MemberController(MemberService memberService) {
@@ -33,8 +36,10 @@ public class MemberController {
     @ApiOperation(value = "회원 리스트 출력", notes = "테이블에 모든 회원 리스트를 출력하는 기능")
     @GetMapping("/members")
     //public List<MemberResponseDto> findAllMembers() {
-    public ListResult<MemberResponseDto> findAllMembers() {
-        return responseService.getListResult(memberService.findAll());
+    // public ListResult<MemberResponseDto> findAllMembers() {
+    public ListResult<Member> findAllMembers() {
+        //return responseService.getListResult(memberService.findAll());
+        return responseService.getListResult(memberRepository.findAll());
     //    return memberService.findAll();
     }
 
