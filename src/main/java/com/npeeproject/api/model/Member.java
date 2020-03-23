@@ -21,6 +21,9 @@ public class Member {
     private Long id;
 
     @NotNull
+    private String password;
+
+    @NotNull
     private String name;
 
     @NotNull
@@ -28,5 +31,4 @@ public class Member {
 
     @NotNull
     private String email;
-    // private LocalDateTime regdate;
 }
