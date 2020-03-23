@@ -42,7 +42,7 @@ public class MemberController {
     @GetMapping(value = "/member/{id}")
     public SingleResult<MemberResponseDto> findMemberById (
             @ApiParam(value = "회원id", required = true) @PathVariable Long id,
-            @ApiParam(value = "언어 코드", required = true) @RequestParam String lang) {
+            @ApiParam(value = "언어 코드", defaultValue = "ko") @RequestParam String lang) {
         return responseService.getSingleResult(memberService.findById(id));
     }
 
