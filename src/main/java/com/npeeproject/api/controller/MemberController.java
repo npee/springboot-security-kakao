@@ -41,8 +41,8 @@ public class MemberController {
     @ApiOperation(value = "회원 조회", notes = "id로 회원 1명 조회")
     @GetMapping(value = "/member/{id}")
     public SingleResult<MemberResponseDto> findMemberById (
-            @ApiParam(value = "회원id", required = true)
-            @PathVariable Long id) {
+            @ApiParam(value = "회원id", required = true) @PathVariable Long id,
+            @ApiParam(value = "언어 코드", required = true) @RequestParam String lang) {
         return responseService.getSingleResult(memberService.findById(id));
     }
 
