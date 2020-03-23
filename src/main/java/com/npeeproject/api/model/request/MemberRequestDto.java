@@ -33,9 +33,10 @@ public class MemberRequestDto {
         //return new Member(name, phones[0], phones[1], phones[2], email);
         Member member = Member.builder()
                 .name(name)
-                .phone1(parsePhone()[0])
-                .phone2(parsePhone()[1])
-                .phone3(parsePhone()[2])
+//                .phone1(parsePhone()[0])
+//                .phone2(parsePhone()[1])
+//                .phone3(parsePhone()[2])
+                .phoneNumber(phoneNumber)
                 .email(email)
                 .build();
         return member;
@@ -47,20 +48,21 @@ public class MemberRequestDto {
         Member member = Member.builder()
                 .id(id)
                 .name(name)
-                .phone1(parsePhone()[0])
-                .phone2(parsePhone()[1])
-                .phone3(parsePhone()[2])
+//                .phone1(parsePhone()[0])
+//                .phone2(parsePhone()[1])
+//                .phone3(parsePhone()[2])
+                .phoneNumber(phoneNumber)
                 .email(email)
                 .build();
         return member;
     }
 
-    private String[] parsePhone() {
-        String[] phones = new String[3];
-        phones[0] = phoneNumber.substring(0, 3);
-        phones[1] = phoneNumber.substring(3, 7);
-        phones[2] = phoneNumber.substring(7, 11);
-        return phones;
-    }
+//    private String[] parsePhone() {
+//        String[] phones = new String[3];
+//        phones[0] = phoneNumber.substring(0, 3);
+//        phones[1] = phoneNumber.substring(3, 7);
+//        phones[2] = phoneNumber.substring(7, 11);
+//        return phones;
+//    }
 
 }
