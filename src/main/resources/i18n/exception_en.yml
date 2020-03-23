@@ -1,0 +1,7 @@
+# exception_en.yml
+unKnown:
+  code: "-9999"
+  message : "An unknown error has occurred."
+memberNotFound:
+  code: "-1000"
+  message: "This member is not exist."
