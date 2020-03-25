@@ -1,5 +1,6 @@
 package com.npeeproject.api.controller;
 
+import com.npeeproject.api.advice.exception.MemberNotFoundException;
 import com.npeeproject.api.model.Member;
 import com.npeeproject.api.repository.MemberRepository;
 import com.npeeproject.api.service.MemberService;
@@ -39,8 +40,10 @@ public class MemberController {
 
     @ApiOperation(value = "회원 조회", notes = "회원번호로 회원 1명 조회")
     @GetMapping(value = "/member/{id}")
-    public SingleResult<Member> findUserById(@ApiParam(value = "회원 번호", required = true) @PathVariable Long id) {
-        return responseService.getSingleResult(memberRepository.findById(id).orElse(null));
+    public SingleResult<Member> findUserById(
+            @ApiParam(value = "회원 번호", required = true) @PathVariable Long id,
+            @ApiParam(value = "지역 코드", defaultValue = "ko") @RequestParam String lang) {
+        return responseService.getSingleResult(memberRepository.findById(id).orElseThrow(MemberNotFoundException::new));
     }
 
     @ApiOperation(value = "회원 등록", notes = "입력된 회원 정보를 DB에 저장하는 기능")
