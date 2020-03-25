@@ -2,6 +2,7 @@ package com.npeeproject.api.advice.exception;
 
 public class MemberNotFoundException extends RuntimeException {
     public MemberNotFoundException() {
+        super();
     }
 
     public MemberNotFoundException(String message) {

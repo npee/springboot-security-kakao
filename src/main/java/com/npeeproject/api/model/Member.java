@@ -5,8 +5,10 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Builder
@@ -20,17 +22,20 @@ public class Member {
     @GeneratedValue
     private Long id;
 
+    @NotBlank(message = "이메일을 입력해주세요")
+    @Email(message = "양식에 맞지 않습니다")
+    private String email;
+
     @NotNull
+    private String password;
+
+    @NotBlank(message = "이름을 입력해주세요")
     private String name;
 
-    @NotNull
-    private String phone1;
-    @NotNull
-    private String phone2;
-    @NotNull
-    private String phone3;
+    @NotBlank(message = "전화번호를 입력해주세요")
+    @Pattern(regexp = "[0-9]{11}", message = "11자리의 숫자로 구성되어야 합니다")
+    //@Pattern(regexp = "^01(?:0|1|[6-9])[.-]?([0-9]{3}|[0-9]{4})[.-]?([0-9]{4})$", message = "11자리의 숫자로 구성되어야 합니다")
+    private String phoneNumber;
 
-    @NotNull
-    private String email;
-    // private LocalDateTime regdate;
+
 }
