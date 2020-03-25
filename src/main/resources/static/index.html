@@ -11,6 +11,14 @@
                 <h1> 회원가입 </h1>
                 <form>
                     <div class="form-group">
+                        <label for="email">이메일</label>
+                        <input type="text" class="form-control" id="email" placeholder="이메일을 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">비밀번호</label>
+                        <input type="text" class="form-control" id="password" placeholder="비밀번호를 입력하세요">
+                    </div>
+                    <div class="form-group">
                         <label for="name">이름</label>
                         <input type="text" class="form-control" id="name" placeholder="이름을 입력하세요">
                     </div>
@@ -18,17 +26,21 @@
                         <label for="phoneNumber"> 휴대폰번호 </label>
                         <input type="text" class="form-control" id="phoneNumber" placeholder="휴대폰 번호를 입력하세요">
                     </div>
-                    <div class="form-group">
-                        <label for="email">이메일</label>
-                        <input type="text" class="form-control" id="email" placeholder="이메일을 입력하세요">
-                    </div>
                     <button type="button" class="btn btn-primary" id="btnSave">등록</button>
                 </form>
                 <h1> 회원수정 </h1>
                 <form>
                     <div class="form-group">
-                        <label for="update-id">ID</label>
+                        <label for="update-id">회원 번호</label>
                         <input type="text" class="form-control" id="update-id" placeholder="수정할 회원의 ID를 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-email">이메일</label>
+                        <input type="text" class="form-control" id="update-email" placeholder="수정할 회원의 이메일을 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-password">비밀번호</label>
+                        <input type="text" class="form-control" id="update-password" placeholder="수정할 회원의 비밀번호를 입력하세요">
                     </div>
                     <div class="form-group">
                         <label for="update-name">이름</label>
@@ -38,10 +50,6 @@
                         <label for="update-phoneNumber"> 휴대폰번호 </label>
                         <input type="text" class="form-control" id="update-phoneNumber" placeholder="수정할 회원의 휴대폰 번호를 입력하세요">
                     </div>
-                    <div class="form-group">
-                        <label for="update-email">이메일</label>
-                        <input type="text" class="form-control" id="update-email" placeholder="수정할 회원의 이메일을 입력하세요">
-                    </div>
                     <button type="button" class="btn btn-primary" id="btnUpdate">수정</button>
                 </form>
             </div>
@@ -50,7 +58,7 @@
                 <form>
                     <div class="form-group">
                         <label for="delete-id">ID</label>
-                        <input type="text" class="form-control" id="delete-id" placeholder="수정할 회원의 ID를 입력하세요">
+                        <input type="text" class="form-control" id="delete-id" placeholder="수정할 회원의 번호를 입력하세요">
                     </div>
                     <button type="button" class="btn btn-primary" id="btnDelete">삭제</button>
                 </form>
@@ -77,9 +85,9 @@
             {{#each members.list}}
             <tr>
                 <td>{{id}}</td>
+                <td>{{email}}</td>
                 <td>{{name}}</td>
                 <td>{{phoneNumber}}</td>
-                <td>{{email}}</td>
             </tr>
             {{/each}}
         </script>
@@ -127,9 +135,11 @@
 
             $('#btnSave').click(function () {
                 var member = {
+                    email: $('#email').val(),
+                    password: $('#password').val(),
                     name: $('#name').val(),
                     phoneNumber: $('#phoneNumber').val(),
-                    email: $('#email').val()
+
                 };
                 $.ajax({
                     url:'/api/member',
@@ -138,9 +148,10 @@
                     contentType: "application/json; charset=utf-8",
                     success: function (response) {
                         findAll();
+                        $('#email').val("");
+                        $('#password').val("");
                         $('#name').val("");
                         $('#phoneNumber').val("");
-                        $('#email').val("");
                     },
                     error: function (response) {
                         markingErrorField(response);
@@ -152,6 +163,7 @@
                 var member = {
                     id: $('#update-id').val(),
                     name: $('#update-name').val(),
+                    password: $('#update-password').val(),
                     phoneNumber: $('#update-phoneNumber').val(),
                     email: $('#update-email').val()
                 };
