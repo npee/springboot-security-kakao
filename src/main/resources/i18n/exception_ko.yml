@@ -11,3 +11,6 @@ emailSigninFailed:
 entryPointException:
   code: "-1002"
   message: "해당 리소스에 대한 접근 권한이 없습니다."
+accessDenied:
+  code: "-1003"
+  message: "보유한 권한으로 접근할 수 없는 리소스 입니다"

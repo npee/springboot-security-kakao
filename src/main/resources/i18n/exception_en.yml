@@ -11,3 +11,6 @@ emailSigninFailed:
 entryPointException:
   code: "-1002"
   message: "You do not habe permission to access this resource."
+accessDenied:
+  code: "-1003"
+  message: "A resource that can not be accessed with the privileges it has."
