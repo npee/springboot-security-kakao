@@ -118,7 +118,7 @@
 
             var findAll = function () {
                 $.ajax({
-                    url:'/api/members',
+                    url:'/v1/members',
                     method: 'GET',
                     success: function (response) {
                         var source   = $("#table-template").html();
@@ -142,7 +142,7 @@
 
                 };
                 $.ajax({
-                    url:'/api/member',
+                    url:'/v1/member',
                     method: 'POST',
                     data: JSON.stringify(member),
                     contentType: "application/json; charset=utf-8",
@@ -168,7 +168,7 @@
                     email: $('#update-email').val()
                 };
                 $.ajax({
-                    url:'/api/member',
+                    url:'/v1/member',
                     method: 'PUT',
                     data: JSON.stringify(member),
                     contentType: "application/json; charset=utf-8",
@@ -185,7 +185,7 @@
             $('#btnDelete').click(function () {
                 var deleteId = $('#delete-id').val();
                 $.ajax({
-                    url:'/api/member/' + deleteId,
+                    url:'/v1/member/' + deleteId,
                     method: 'DELETE',
                     // data: JSON.stringify(member),
                     contentType: "application/json; charset=utf-8",
