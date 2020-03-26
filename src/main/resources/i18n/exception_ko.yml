@@ -8,3 +8,6 @@ memberNotFound:
 emailSigninFailed:
   code: "-1001"
   message: "계정이 존재하지 않거나 이메일 또는 비밀번호가 정확하지 않습니다."
+entryPointException:
+  code: "-1002"
+  message: "해당 리소스에 대한 접근 권한이 없습니다."

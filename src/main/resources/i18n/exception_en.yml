@@ -8,3 +8,6 @@ memberNotFound:
 emailSigninFailed:
   code: "-1001"
   message: "Your account does not exist or your email or password is incorrect."
+entryPointException:
+  code: "-1002"
+  message: "You do not habe permission to access this resource."

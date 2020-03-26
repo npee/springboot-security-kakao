@@ -1,6 +1,6 @@
 package com.npeeproject.api.advice;
 
-
+import com.npeeproject.api.advice.exception.CustomAuthenticationEntryPointException;
 import com.npeeproject.api.advice.exception.CustomEmailSigninFailedException;
 import com.npeeproject.api.advice.exception.MemberNotFoundException;
 import com.npeeproject.api.model.response.config.CommonResult;
@@ -40,6 +40,12 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     protected CommonResult emailSigninFaildException(HttpServletRequest request, CustomEmailSigninFailedException e) {
         return responseService.getFailResult(Integer.valueOf(getMessage("emailSigninFailed.code")), getMessage("emailSigninFailed.message"));
+    }
+
+    @ExceptionHandler(CustomAuthenticationEntryPointException.class)
+    // @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult authenticationEntryPointException(HttpServletRequest request, CustomAuthenticationEntryPointException e) {
+        return responseService.getFailResult(Integer.valueOf(getMessage("entryPointException.code")), getMessage("entryPointException.message"));
     }
 
     private String getMessage(String code) {
