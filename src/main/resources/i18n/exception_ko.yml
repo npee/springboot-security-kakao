@@ -5,3 +5,6 @@ unKnown:
 memberNotFound:
   code: "-1000"
   message: "존재하지 않는 회원입니다"
+emailSigninFailed:
+  code: "-1001"
+  message: "계정이 존재하지 않거나 이메일 또는 비밀번호가 정확하지 않습니다."

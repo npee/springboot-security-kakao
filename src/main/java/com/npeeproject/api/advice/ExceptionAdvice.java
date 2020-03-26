@@ -1,5 +1,7 @@
 package com.npeeproject.api.advice;
 
+
+import com.npeeproject.api.advice.exception.CustomEmailSigninFailedException;
 import com.npeeproject.api.advice.exception.MemberNotFoundException;
 import com.npeeproject.api.model.response.config.CommonResult;
 import com.npeeproject.api.service.ResponseService;
@@ -32,6 +34,12 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     protected CommonResult memberNotFountException(HttpServletRequest request, MemberNotFoundException e) {
         return responseService.getFailResult(Integer.valueOf(getMessage("memberNotFound.code")), getMessage("memberNotFound.message"));
+    }
+
+    @ExceptionHandler(CustomEmailSigninFailedException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult emailSigninFaildException(HttpServletRequest request, CustomEmailSigninFailedException e) {
+        return responseService.getFailResult(Integer.valueOf(getMessage("emailSigninFailed.code")), getMessage("emailSigninFailed.message"));
     }
 
     private String getMessage(String code) {
