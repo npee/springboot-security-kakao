@@ -8,9 +8,7 @@ import com.npeeproject.api.service.ResponseService;
 import com.npeeproject.api.model.response.config.CommonResult;
 import com.npeeproject.api.model.response.config.ListResult;
 import com.npeeproject.api.model.response.config.SingleResult;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +17,7 @@ import javax.validation.Valid;
 @Api(tags = {"1. Member"})
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/v1")
 public class MemberController {
 
     private final MemberService memberService;
@@ -32,12 +30,14 @@ public class MemberController {
     }
     */
 
+    @ApiImplicitParams({@ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")})
     @ApiOperation(value = "회원 리스트 출력", notes = "테이블에 모든 회원 리스트를 출력하는 기능")
     @GetMapping(value = "/members")
     public ListResult<Member> findAllMembers() {
         return responseService.getListResult(memberRepository.findAll());
     }
 
+    @ApiImplicitParams({@ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = false, dataType = "String", paramType = "header")})
     @ApiOperation(value = "회원 조회", notes = "회원번호로 회원 1명 조회")
     @GetMapping(value = "/member/{id}")
     public SingleResult<Member> findUserById(
@@ -46,6 +46,7 @@ public class MemberController {
         return responseService.getSingleResult(memberRepository.findById(id).orElseThrow(MemberNotFoundException::new));
     }
 
+    @ApiImplicitParams({@ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")})
     @ApiOperation(value = "회원 등록", notes = "입력된 회원 정보를 DB에 저장하는 기능")
     @PostMapping("/member")
     public SingleResult<Member> saveMember(
@@ -63,6 +64,7 @@ public class MemberController {
         return responseService.getSingleResult(memberService.save(member));
     }
 
+    @ApiImplicitParams({@ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")})
     @ApiOperation(value = "회원정보 수정", notes = "회원정보 수정하기(Email 중복 체크 주의: 기존 Email도 포함됨)")
     @PutMapping(value = "/member")
     public SingleResult<Member> modifyMemberInfo (
@@ -82,6 +84,7 @@ public class MemberController {
         return responseService.getSingleResult(memberService.update(member));
     }
 
+    @ApiImplicitParams({@ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")})
     @ApiOperation(value = "회원 삭제", notes = "회원정보 삭제하기")
     @DeleteMapping(value = "/member/{id}")
     public CommonResult deleteMemeber(
