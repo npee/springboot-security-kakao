@@ -30,6 +30,7 @@ public class Member implements UserDetails {
 
     @NotBlank(message = "이메일을 입력해주세요")
     @Email(message = "양식에 맞지 않습니다")
+    @NotNull
     private String email;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -37,10 +38,12 @@ public class Member implements UserDetails {
     private String password;
 
     @NotBlank(message = "이름을 입력해주세요")
+    @NotNull
     private String name;
 
     @NotBlank(message = "전화번호를 입력해주세요")
     @Pattern(regexp = "[0-9]{11}", message = "11자리의 숫자로 구성되어야 합니다")
+    @NotNull
     //@Pattern(regexp = "^01(?:0|1|[6-9])[.-]?([0-9]{3}|[0-9]{4})[.-]?([0-9]{4})$", message = "11자리의 숫자로 구성되어야 합니다")
     private String phoneNumber;
 
