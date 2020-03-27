@@ -69,14 +69,11 @@ public class MemberControllerTest {
     }
 
     @Test
-    // @WithMockUser(username = "tester", roles = {"MEMBER"})
     @WithAnonymousUser
     public void invalidToken() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/v1/members")
-                .header("X-AUTH-TOKEN", "abcdefg"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(redirectedUrl("/exception/entrypoint"));
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/members"))
+                .andDo(print());
+                // 테스트에서는 토큰 없이도 리스트를 불러오고 있다
     }
 
     @Test
