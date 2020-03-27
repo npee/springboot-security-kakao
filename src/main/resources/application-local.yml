@@ -1,0 +1,8 @@
+logging:
+  level:
+    root: warn
+    com.npeeproject.api : debug
+spring:
+  profiles: local
+  url:
+    base: http://localhost:8080

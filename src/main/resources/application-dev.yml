@@ -1,0 +1,11 @@
+logging:
+  level:
+    root: warn
+    com.npeeproject.api : info
+  file:
+    path: c:/logs/api
+    max-history: 7
+spring:
+  profiles: alpha
+  url:
+    base: http://alpha.npee.com
