@@ -35,10 +35,12 @@ public class SocialController {
                 .append(environment.getProperty("spring.social.kakao.url.login"))
                 .append("?client_id=")
                 .append(kakaoClientId)
-                .append("&response_type-code")
-                .append("&redirect_url=")
+                .append("&response_type=code")
+                .append("&redirect_uri=")
                 .append(baseUrl)
                 .append(kakaoRedirect);
+
+        System.err.println(loginUrl);
 
         mv.addObject("loginUrl", loginUrl);
         mv.setViewName("social/login");

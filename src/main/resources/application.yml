@@ -5,6 +5,9 @@ spring:
   profiles:
     active: local
     # java -jar -Dspring.profiles.active=local api-0.0.1-SNAPSHOT.jar
+  freemarker:
+    template-loader-path: classpath:/templates
+    suffix: .ftl
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: manager
