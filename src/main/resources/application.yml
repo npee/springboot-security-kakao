@@ -23,8 +23,8 @@ spring:
     secret: jmcchan@#&
   social:
     kakao:
-      client_id: xxxxxxxxxxxxxxxx
-      redirect: /oauth
+      client_id: 9b91deb9b9f1fde386549297eb793461
+      redirect: /social/login/kakao
       url:
         login: https://kauth.kakao.com/oauth/authorize
         token: https://kauth.kakao.com/oauth/token
