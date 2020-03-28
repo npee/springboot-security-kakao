@@ -21,3 +21,11 @@ spring:
     encoding: UTF-8
   jwt:
     secret: jmcchan@#&
+  social:
+    kakao:
+      client_id: xxxxxxxxxxxxxxxx
+      redirect: /oauth
+      url:
+        login: https://kauth.kakao.com/oauth/authorize
+        token: https://kauth.kakao.com/oauth/token
+        profile: https://kapi.kakao.com/v2/user/me
