@@ -22,23 +22,27 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Getter
 @ToString
+@Table(name = "member")
 public class Member implements UserDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "이메일을 입력해주세요")
     @Email(message = "양식에 맞지 않습니다")
     @NotNull
+    @Column(nullable = false, unique = true, length = 50)
     private String email;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @NotNull
+    // @NotNull
+    @Column(length = 100)
     private String password;
 
     @NotBlank(message = "이름을 입력해주세요")
     @NotNull
+    @Column(length = 100)
     private String name;
 
     @NotBlank(message = "전화번호를 입력해주세요")
@@ -46,6 +50,9 @@ public class Member implements UserDetails {
     @NotNull
     //@Pattern(regexp = "^01(?:0|1|[6-9])[.-]?([0-9]{3}|[0-9]{4})[.-]?([0-9]{4})$", message = "11자리의 숫자로 구성되어야 합니다")
     private String phoneNumber;
+
+    @Column(length = 100)
+    private String provider;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
