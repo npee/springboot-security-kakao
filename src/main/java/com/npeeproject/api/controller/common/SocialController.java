@@ -1,12 +1,15 @@
 package com.npeeproject.api.controller.common;
 
 import com.google.gson.Gson;
+import com.npeeproject.api.model.social.RetkakaoAuth;
+import com.npeeproject.api.service.KakaoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,6 +21,7 @@ public class SocialController {
     private final Environment environment;
     private final RestTemplate restTemplate;
     private final Gson gson;
+    private final KakaoService kakaoService;
 
     @Value("${spring.url.base}")
     private String baseUrl;
@@ -44,6 +48,14 @@ public class SocialController {
 
         mv.addObject("loginUrl", loginUrl);
         mv.setViewName("social/login");
+        return mv;
+    }
+
+    @GetMapping(value = "/kakao")
+    public ModelAndView redirectKakao(ModelAndView mv, @RequestParam String code) {
+        
+        mv.addObject("authInfo", kakaoService.getKakaoTokenInfo(code));
+        mv.setViewName("social/redirectKakao");
         return mv;
     }
 
