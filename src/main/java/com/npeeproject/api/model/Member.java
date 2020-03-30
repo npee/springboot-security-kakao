@@ -30,14 +30,13 @@ public class Member implements UserDetails {
     private Long id;
 
     @NotBlank(message = "이메일을 입력해주세요")
-    @Email(message = "양식에 맞지 않습니다")
-    @NotNull
+    // @Email(message = "양식에 맞지 않습니다")
     @Column(nullable = false, unique = true, length = 50)
     private String email;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     // @NotNull
-    @Column(length = 100)
+    @Column(nullable = true, length = 50)
     private String password;
 
     @NotBlank(message = "이름을 입력해주세요")
