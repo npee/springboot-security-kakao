@@ -17,3 +17,6 @@ accessDenied:
 communicationError:
   code: "-1004"
   message: "통신 중 오류가 발생하였습니다."
+memberExist:
+  code: "-1005"
+  message: "이미 존재하는 회원입니다."

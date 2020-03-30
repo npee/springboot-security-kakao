@@ -1,9 +1,6 @@
 package com.npeeproject.api.advice;
 
-import com.npeeproject.api.advice.exception.CustomAuthenticationEntryPointException;
-import com.npeeproject.api.advice.exception.CustomCommunicationException;
-import com.npeeproject.api.advice.exception.CustomEmailSigninFailedException;
-import com.npeeproject.api.advice.exception.MemberNotFoundException;
+import com.npeeproject.api.advice.exception.*;
 import com.npeeproject.api.model.response.config.CommonResult;
 import com.npeeproject.api.service.ResponseService;
 import lombok.RequiredArgsConstructor;
@@ -60,6 +57,12 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     protected CommonResult communicationException(HttpServletRequest request, CustomCommunicationException e) {
         return responseService.getFailResult(Integer.valueOf(getMessage("communicationError.code")), getMessage("communicationError.message"));
+    }
+
+    @ExceptionHandler(CustomMemberExistException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult memberExistException(HttpServletRequest request, CustomMemberExistException e) {
+        return responseService.getFailResult(Integer.valueOf(getMessage("memberExist.code")), getMessage("memberExist.message"));
     }
 
 

@@ -17,3 +17,6 @@ accessDenied:
 commumicationError:
   code: "-1004"
   message: "An error occurred during communication."
+memberExist:
+  code: "-1005"
+  message: "The member already exists."

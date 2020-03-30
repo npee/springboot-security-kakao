@@ -1,6 +1,7 @@
 package com.npeeproject.api.controller;
 
 import com.npeeproject.api.advice.exception.CustomEmailSigninFailedException;
+import com.npeeproject.api.advice.exception.CustomMemberExistException;
 import com.npeeproject.api.advice.exception.MemberNotFoundException;
 import com.npeeproject.api.config.security.JwtTokenProvider;
 import com.npeeproject.api.model.Member;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Collections;
+import java.util.Optional;
 
 @Api(tags = {"2. Sign"})
 @RequiredArgsConstructor
@@ -46,7 +48,7 @@ public class SignController {
 
     }
 
-    @ApiOperation(value = "소셜 로그인", notes = "소셜로 로그인")
+    @ApiOperation(value = "카카오 로그인", notes = "카카오 계정으로 로그인")
     @PostMapping(value = "/signin/{provider}")
     public SingleResult<String> signinByProvider(
             @ApiParam(value = "서비스 제공자", required = true, defaultValue = "kakao") @PathVariable String provider,
@@ -84,4 +86,38 @@ public class SignController {
         // return responseService.getSingleResult(memberService.save(member));
         return responseService.getSuccessResult();
     }
+
+    @ApiOperation(value = "카카오 회원가입", notes = "카카오 계정으로 회원가입")
+    @PostMapping(value = "/signup/{provider}")
+    public CommonResult signupByProvider(
+            @ApiParam(value = "서비스 제공자", required = true, defaultValue = "kakao") @PathVariable String provider,
+            @ApiParam(value = "소셜 access_token", required = true) @RequestParam String accessToken,
+            @ApiParam(value = "이름", required = true) @RequestParam String name,
+            @ApiParam(value = "전화번호", required = true) @RequestParam String phoneNumber) {
+
+        KakaoProfile profile = kakaoService.getKakaoProfile(accessToken);
+        Optional<Member> member = memberRepository.findByEmailAndProvider(String.valueOf(profile.getId()), provider);
+        if (member.isPresent()) {
+            throw new CustomMemberExistException();
+        }
+
+//        memberService.save(Member.builder()
+//            .email(String.valueOf(profile.getId()))
+//            .provider(provider)
+//            .name(name)
+//            .phoneNumber(phoneNumber)
+//            .roles(Collections.singletonList("ROLE_MEMBER"))
+//            .build());
+        memberService.save(Member.builder()
+            .email(String.valueOf(profile.getId()))
+            .provider(provider)
+            .name(name)
+            .phoneNumber(phoneNumber)
+            .roles(Collections.singletonList("ROLE_MEMBER"))
+            .build());
+
+
+        return responseService.getSuccessResult();
+    }
+
 }
