@@ -1,6 +1,7 @@
 package com.npeeproject.api.advice;
 
 import com.npeeproject.api.advice.exception.CustomAuthenticationEntryPointException;
+import com.npeeproject.api.advice.exception.CustomCommunicationException;
 import com.npeeproject.api.advice.exception.CustomEmailSigninFailedException;
 import com.npeeproject.api.advice.exception.MemberNotFoundException;
 import com.npeeproject.api.model.response.config.CommonResult;
@@ -53,6 +54,12 @@ public class ExceptionAdvice {
     // @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     protected CommonResult accessDeniedException(HttpServletRequest request, AccessDeniedException e) {
         return responseService.getFailResult(Integer.valueOf(getMessage("accessDenied.code")), getMessage("accessDenied.message"));
+    }
+
+    @ExceptionHandler(CustomCommunicationException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult communicationException(HttpServletRequest request, CustomCommunicationException e) {
+        return responseService.getFailResult(Integer.valueOf(getMessage("communicationError.code")), getMessage("communicationError.message"));
     }
 
 

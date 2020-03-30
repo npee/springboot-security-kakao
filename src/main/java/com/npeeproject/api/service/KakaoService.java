@@ -1,6 +1,8 @@
 package com.npeeproject.api.service;
 
 import com.google.gson.Gson;
+import com.npeeproject.api.advice.exception.CustomCommunicationException;
+import com.npeeproject.api.model.social.KakaoProfile;
 import com.npeeproject.api.model.social.RetkakaoAuth;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,6 +29,23 @@ public class KakaoService {
 
     @Value("${spring.social.kakao.redirect}")
     private String kakaoRedirect;
+
+    public KakaoProfile getKakaoProfile(String accessToken) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.set("Authorization", "Bearer " + accessToken);
+
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(null, headers);
+        try {
+            ResponseEntity<String> response = restTemplate.postForEntity(environment.getProperty("spring.social.kakao.url.profile"), request, String.class);
+            if (response.getStatusCode() == HttpStatus.OK) {
+                return gson.fromJson(response.getBody(), KakaoProfile.class);
+            }
+        } catch (Exception e) {
+            throw new CustomCommunicationException();
+        }
+        throw new CustomCommunicationException();
+    }
 
     public RetkakaoAuth getKakaoTokenInfo(String code) {
         HttpHeaders headers = new HttpHeaders();

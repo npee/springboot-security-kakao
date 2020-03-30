@@ -1,11 +1,14 @@
 package com.npeeproject.api.controller;
 
 import com.npeeproject.api.advice.exception.CustomEmailSigninFailedException;
+import com.npeeproject.api.advice.exception.MemberNotFoundException;
 import com.npeeproject.api.config.security.JwtTokenProvider;
 import com.npeeproject.api.model.Member;
 import com.npeeproject.api.model.response.config.CommonResult;
 import com.npeeproject.api.model.response.config.SingleResult;
+import com.npeeproject.api.model.social.KakaoProfile;
 import com.npeeproject.api.repository.MemberRepository;
+import com.npeeproject.api.service.KakaoService;
 import com.npeeproject.api.service.MemberService;
 import com.npeeproject.api.service.ResponseService;
 import io.swagger.annotations.Api;
@@ -29,6 +32,7 @@ public class SignController {
     private final JwtTokenProvider jwtTokenProvider;
     private final ResponseService responseService;
     private final PasswordEncoder passwordEncoder;
+    private final KakaoService kakaoService;
 
     @ApiOperation(value = "로그인", notes = "회원 로그인")
     @PostMapping(value = "/signin")
@@ -40,6 +44,18 @@ public class SignController {
 
         return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(member.getId()), member.getRoles()));
 
+    }
+
+    @ApiOperation(value = "소셜 로그인", notes = "소셜로 로그인")
+    @PostMapping(value = "/signin/{provider}")
+    public SingleResult<String> signinByProvider(
+            @ApiParam(value = "서비스 제공자", required = true, defaultValue = "kakao") @PathVariable String provider,
+            @ApiParam(value = "소셜 access_token", required = true) @RequestParam String accessToken) {
+
+        KakaoProfile profile = kakaoService.getKakaoProfile(accessToken);
+        Member member = memberRepository.findByEmailAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(MemberNotFoundException::new);
+
+        return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(member.getId()), member.getRoles()));
     }
 
     @ApiOperation(value = "회원가입", notes = "회원 등록")

@@ -14,3 +14,6 @@ entryPointException:
 accessDenied:
   code: "-1003"
   message: "A resource that can not be accessed with the privileges it has."
+commumicationError:
+  code: "-1004"
+  message: "An error occurred during communication."
